@@ -12,6 +12,7 @@
       :sort-order="sortOrder"
       :loading="loading"
     >
+      <!-- 상위컴포넌트에서 넘어온 slot 만큼 for문을 돌려서 하위컴포넌트의 slot으로 보낸다. -->
       <template v-for="(_, name) in $slots" v-slot:[name]="{ row: item }">
         <slot :name="name" :row="item" />
       </template>
@@ -35,7 +36,9 @@ import type { Sort } from "@/components/kt-datatable/table-partials/models";
 export default defineComponent({
   name: "kt-datatable",
   props: {
+    // 상위 컴포넌트로 부터 넘어온 테이블의 헤더정보
     header: { type: Array, required: true },
+    // 상위 컴포넌트로 부터 넘어온 테이블의 모든 데이터 목록
     data: { type: Array, required: true },
     itemsPerPage: { type: Number, default: 10 },
     itemsPerPageDropdownEnabled: {
@@ -67,9 +70,12 @@ export default defineComponent({
     TableFooter,
   },
   setup(props, { emit }) {
+    // 현재 페이지
     const currentPage = ref(props.currentPage);
+    // 페이지당 row 수
     const itemsInTable = ref<number>(props.itemsPerPage);
 
+    // itemsInTable 값이 변경된 경우 감지되서 실행되는 함수
     watch(
       () => itemsInTable.value,
       (val) => {
@@ -78,11 +84,13 @@ export default defineComponent({
       }
     );
 
+    // page 가 변경된 경우 실행되는 함수
     const pageChange = (page: number) => {
       currentPage.value = page;
       emit("page-change", page);
     };
 
+    // 실제 테이블상에 보여줄 데이터목록
     const dataToDisplay = computed(() => {
       if (props.data) {
         if (props.data.length <= itemsInTable.value) {
@@ -95,6 +103,7 @@ export default defineComponent({
       return [];
     });
 
+    // 총 데이터갯수
     const totalItems = computed(() => {
       if (props.data) {
         if (props.data.length <= itemsInTable.value) {
@@ -106,10 +115,12 @@ export default defineComponent({
       return 0;
     });
 
+    // 정렬을 실행
     const onSort = (sort: Sort) => {
       emit("on-sort", sort);
     };
 
+    // 테이블에서 특정 row 를 선택한 경우 실행되는 함수
     //eslint-disable-next-line
     const onItemSelect = (selectedItems: any) => {
       emit("on-items-select", selectedItems);
