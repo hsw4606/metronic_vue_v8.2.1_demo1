@@ -100,6 +100,7 @@ export default defineComponent({
     };
 
     // 실제 테이블상에 보여줄 데이터목록
+    // currentPage 가 변경될 경우 dataToDisplay 가 변경된다.
     const dataToDisplay = computed(() => {
       if (props.data) {
         if (props.data.length <= itemsInTable.value) {
