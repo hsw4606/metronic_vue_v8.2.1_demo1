@@ -18,6 +18,7 @@
         <!-- 상위컴포넌트에서 넘어온 header 만큼 slot을 만든다. -->
         <template v-for="(properties, j) in header" :key="j">
           <td :class="{ 'text-end': j === header.length - 1 }">
+            <!-- 상위컴포넌트에 row 프로퍼티로 데이터를 넘긴다. -->
             <slot :name="`${properties.columnLabel}`" :row="row">
               {{
                 row /* 상위컴포넌트에서 해당 slot이 넘어오지 않으면 row를 그냥 뿌린다. */
