@@ -45,9 +45,9 @@ export default defineComponent({
     header: { type: Array, required: true },
     // 상위 컴포넌트로 부터 넘어온 테이블의 모든 데이터 목록
     data: { type: Array, required: true },
-    // 페이지당 row 수
+    // 상위 컴포넌트로 부터 넘어온 페이지당 row 수
     itemsPerPage: { type: Number, default: 10 },
-    // 페이지당 row 수 변경 dropdown 활성화 여부
+    // 상위 컴포넌트로 부터 넘어온 페이지당 row 수 변경 dropdown 활성화 여부
     itemsPerPageDropdownEnabled: {
       type: Boolean,
       required: false,

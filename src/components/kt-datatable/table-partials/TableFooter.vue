@@ -73,6 +73,7 @@ export default defineComponent({
       emit("page-change", page.value);
     };
 
+    // TableItemsPerPageSelect 컴포넌트에 v-model 로 바인딩해서 보낼
     // 페이지당 row 수
     const itemsCountInTable: WritableComputedRef<number> = computed({
       // 위의 v-model:itemsPerPage="itemsCountInTable" 을 통해 가져갈 경우
