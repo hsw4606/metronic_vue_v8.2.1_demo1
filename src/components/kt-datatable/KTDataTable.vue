@@ -75,10 +75,10 @@ export default defineComponent({
     currentPage: { type: Number, required: false, default: 1 },
   },
   emits: [
-    "page-change",
-    "on-sort",
-    "on-items-select",
-    "on-items-per-page-change",
+    "page-change", // 페이지변경 이벤트
+    "on-sort", // 정렬 이벤트
+    "on-items-select", // 체크박스 아이템 선택시 이벤트
+    "on-items-per-page-change", // 페이지당 row 수 변경 이벤트
   ],
   components: {
     TableContent,
