@@ -110,6 +110,20 @@ export default defineComponent({
       emit("page-change", page);
     };
 
+    // 정렬을 실행
+    // 즉 여기서 하는 역할은 하위컴포넌트(TableContent)에서
+    // 정렬변경 이벤트가 발생한 경우 그대로 상위 컴포넌트에 이벤트를 넘긴다.
+    const onSort = (sort: Sort) => {
+      emit("on-sort", sort);
+    };
+
+    // 테이블에서 체크박스로 row 를 선택한 경우 실행되는 함수
+    // 즉 여기서 하는 역할은 하위컴포넌트(TableContent)에서
+    // 체크박스로 row 선택이벤트가 발생한 경우 그대로 상위 컴포넌트에 이벤트를 넘긴다.
+    const onItemSelect = (selectedItems: any) => {
+      emit("on-items-select", selectedItems);
+    };
+
     // 실제 테이블상에 보여줄 데이터목록
     // currentPage 가 변경될 경우 dataToDisplay 가 변경된다.
     const dataToDisplay = computed(() => {
@@ -135,20 +149,6 @@ export default defineComponent({
       }
       return 0;
     });
-
-    // 정렬을 실행
-    // 즉 여기서 하는 역할은 하위컴포넌트(TableFooter)에서
-    // 정렬변경 이벤트가 발생한 경우 그대로 상위 컴포넌트에 이벤트를 넘긴다.
-    const onSort = (sort: Sort) => {
-      emit("on-sort", sort);
-    };
-
-    // 테이블에서 체크박스로 row 를 선택한 경우 실행되는 함수
-    // 즉 여기서 하는 역할은 하위컴포넌트(TableFooter)에서
-    // 체크박스로 row 선택이벤트가 발생한 경우 그대로 상위 컴포넌트에 이벤트를 넘긴다.
-    const onItemSelect = (selectedItems: any) => {
-      emit("on-items-select", selectedItems);
-    };
 
     return {
       pageChange,
