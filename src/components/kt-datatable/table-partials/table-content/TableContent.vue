@@ -23,8 +23,8 @@
         :checkbox-label="checkboxLabel"
       >
         <!-- 상위컴포넌트에서 넘어온 slot 만큼 for문을 돌려서 하위컴포넌트의 slot으로 보낸다. -->
-        <template v-for="(_, name) in $slots" v-slot:[name]="{ row: item }">
-          <slot :name="name" :row="item" />
+        <template v-for="(_, idx) in $slots" v-slot:[idx]="{ row: item }">
+          <slot :name="idx" :row="item" />
         </template>
       </TableBodyRow>
       <template v-else>
