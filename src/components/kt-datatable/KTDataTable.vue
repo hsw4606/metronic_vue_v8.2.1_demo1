@@ -91,6 +91,7 @@ export default defineComponent({
     // 페이지당 row 수
     const itemsInTable = ref<number>(props.itemsPerPage);
 
+    // 하위컴포넌트(TableFooter)에 v-model 로 바인딩되어있는
     // itemsInTable 값이 변경된 경우 감지되서 실행되는 함수
     // 즉 페이지당 row 가 변경된 경우 currentPage 를 1로 변경하고
     // on-items-per-page-change 이벤트를 발생시키면서 현재페이지값을 넘겨준다.
