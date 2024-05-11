@@ -57,6 +57,7 @@ export default defineComponent({
       }
     );
 
+    // 페이지당 row갯수가 변경된 경우 1 페이지로 변경
     watch(
       () => inputItemsPerPage.value,
       () => {
