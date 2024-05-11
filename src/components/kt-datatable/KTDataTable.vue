@@ -78,7 +78,7 @@ export default defineComponent({
     "page-change", // 페이지변경 이벤트
     "on-sort", // 정렬 이벤트
     "on-items-select", // 체크박스 아이템 선택시 이벤트
-    "on-items-per-page-change", // 페이지당 row 수 변경 이벤트
+    "on-items-per-page-change", // 페이지당 row 갯수 변경 이벤트
   ],
   components: {
     TableContent,
@@ -92,7 +92,8 @@ export default defineComponent({
     const itemsInTable = ref<number>(props.itemsPerPage);
 
     // itemsInTable 값이 변경된 경우 감지되서 실행되는 함수
-    // 즉 페이지당 row 가 변경된 경우 currentPage 를 1로 셋팅한다.
+    // 즉 페이지당 row 가 변경된 경우 currentPage 를 1로 변경하고
+    // on-items-per-page-change 이벤트를 발생시키면서 현재페이지값을 넘겨준다.
     watch(
       () => itemsInTable.value,
       (val) => {
@@ -102,6 +103,8 @@ export default defineComponent({
     );
 
     // page 가 변경된 경우 실행되는 함수
+    // 즉 여기서 하는 역할은 하위컴포넌트(TableFooter)에서
+    // page 변경 이벤트가 발생한 경우 그대로 상위 컴포넌트에 이벤트를 넘긴다.
     const pageChange = (page: number) => {
       currentPage.value = page;
       emit("page-change", page);
@@ -134,12 +137,15 @@ export default defineComponent({
     });
 
     // 정렬을 실행
+    // 즉 여기서 하는 역할은 하위컴포넌트(TableFooter)에서
+    // 정렬변경 이벤트가 발생한 경우 그대로 상위 컴포넌트에 이벤트를 넘긴다.
     const onSort = (sort: Sort) => {
       emit("on-sort", sort);
     };
 
-    // 테이블에서 특정 row 를 선택한 경우 실행되는 함수
-    //eslint-disable-next-line
+    // 테이블에서 체크박스로 row 를 선택한 경우 실행되는 함수
+    // 즉 여기서 하는 역할은 하위컴포넌트(TableFooter)에서
+    // 체크박스로 row 선택이벤트가 발생한 경우 그대로 상위 컴포넌트에 이벤트를 넘긴다.
     const onItemSelect = (selectedItems: any) => {
       emit("on-items-select", selectedItems);
     };
