@@ -12,13 +12,16 @@
       :sort-order="sortOrder"
       :loading="loading"
     >
-      <!-- 상위컴포넌트에서 넘어온 slot 만큼 v-for문을 돌려서 하위컴포넌트의 slot으로 보낸다. -->
+      <!-- 상위컴포넌트에서 넘어온 slot 만큼 v-for문을 돌려서 상위컴포넌트에서 보낸 slot 을 받을 slot 태그를 준비한다.
+          그리고, 그대로 하위컴포넌트의 slot으로 보낸다. -->
       <!-- 그리고 하위컴포넌트에서 넘어온 row 의 값을 item 변수로 치환한다. -->
       <template v-for="(_, name) in $slots" v-slot:[name]="{ row: item }">
         <!-- 하위컴포넌트에서 넘어온 row 의 값을 item 변수로 치환해서 상위컴포넌트에 row 프로퍼티로 해서 넘긴다. -->
         <slot :name="name" :row="item" />
       </template>
     </TableContent>
+
+    <!-- TableFooter 컴포넌트에 itemsPerPage 라는 이름의 prop 로 itemsInTable 값을 v-model 로 바인딩 지정한다. -->
     <TableFooter
       @page-change="pageChange"
       :current-page="currentPage"
@@ -42,7 +45,9 @@ export default defineComponent({
     header: { type: Array, required: true },
     // 상위 컴포넌트로 부터 넘어온 테이블의 모든 데이터 목록
     data: { type: Array, required: true },
+    // 페이지당 row 수
     itemsPerPage: { type: Number, default: 10 },
+    // 페이지당 row 수 변경 dropdown 활성화 여부
     itemsPerPageDropdownEnabled: {
       type: Boolean,
       required: false,
@@ -73,11 +78,13 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     // 현재 페이지
+    // prop 자체는 변경이 불가하므로 이러한 방식으로 변경이 가능하도록 한다.
     const currentPage = ref(props.currentPage);
     // 페이지당 row 수
     const itemsInTable = ref<number>(props.itemsPerPage);
 
     // itemsInTable 값이 변경된 경우 감지되서 실행되는 함수
+    // 즉 페이지당 row 가 변경된 경우 currentPage 를 1로 셋팅한다.
     watch(
       () => itemsInTable.value,
       (val) => {

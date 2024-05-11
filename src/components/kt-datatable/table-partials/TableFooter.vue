@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+    <!-- TableItemsPerPageSelect 컴포넌트에 itemsPerPage 라는 이름의 prop 로 itemsCountInTable 값을 v-model 로 바인딩 지정한다. -->
     <TableItemsPerPageSelect
       v-model:itemsPerPage="itemsCountInTable"
       :items-per-page-dropdown-enabled="itemsPerPageDropdownEnabled"
@@ -48,6 +49,7 @@ export default defineComponent({
     const page = ref(props.currentPage);
     const inputItemsPerPage = ref(props.itemsPerPage);
 
+    // 총 데이터갯수가 변경된 경우 1 페이지로 변경
     watch(
       () => props.count,
       () => {
@@ -71,12 +73,16 @@ export default defineComponent({
       emit("page-change", page.value);
     };
 
+    // 페이지당 row 수
     const itemsCountInTable: WritableComputedRef<number> = computed({
+      // 위의 v-model:itemsPerPage="itemsCountInTable" 을 통해 가져갈 경우
       get(): number {
         return props.itemsPerPage;
       },
+      // 위의 v-model:itemsPerPage="itemsCountInTable" 을 통해 변경된 경우
       set(value: number): void {
         inputItemsPerPage.value = value;
+        // 상위 컴포넌트의 v-model:itemsPerPage 로 해당값을 올려보낸다.
         emit("update:itemsPerPage", value);
       },
     });

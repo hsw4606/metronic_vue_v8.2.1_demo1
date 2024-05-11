@@ -21,7 +21,7 @@
             <!-- 상위컴포넌트에 row 프로퍼티로 데이터를 넘긴다. -->
             <slot :name="`${properties.columnLabel}`" :row="row">
               {{
-                row /* 상위컴포넌트에서 해당 slot이 넘어오지 않으면 row를 그냥 뿌린다. */
+                row /* 상위컴포넌트에서 header 의 columnLabel 에 해당하는 slot이 넘어오지 않으면 data 의 row 를 그냥 뿌린다. */
               }}
             </slot>
           </td>
