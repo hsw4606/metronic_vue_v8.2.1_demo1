@@ -41,29 +41,37 @@ import type { Sort } from "@/components/kt-datatable/table-partials/models";
 export default defineComponent({
   name: "kt-datatable",
   props: {
-    // 상위 컴포넌트로 부터 넘어온 테이블의 헤더정보
+    // 테이블의 헤더정보
     header: { type: Array, required: true },
-    // 상위 컴포넌트로 부터 넘어온 테이블의 모든 데이터 목록
+    // 테이블의 모든 데이터 목록
     data: { type: Array, required: true },
-    // 상위 컴포넌트로 부터 넘어온 페이지당 row 수
+    // 페이지당 row 수
     itemsPerPage: { type: Number, default: 10 },
-    // 상위 컴포넌트로 부터 넘어온 페이지당 row 수 변경 dropdown 활성화 여부
+    // 페이지당 row 수 변경 dropdown 활성화 여부
     itemsPerPageDropdownEnabled: {
       type: Boolean,
       required: false,
       default: true,
     },
+    // 체크박스 사용여부
     checkboxEnabled: { type: Boolean, required: false, default: false },
+    // 체크박스 대상 데이터 key
     checkboxLabel: { type: String, required: false, default: "id" },
+    // 총 데이터수
     total: { type: Number, required: false },
+    // 로딩바 보여주기 여부
     loading: { type: Boolean, required: false, default: false },
+    // 최초 정렬할 대상
     sortLabel: { type: String, required: false, default: null },
+    // 정렬 방식
     sortOrder: {
       type: String as () => "asc" | "desc",
       required: false,
       default: "asc",
     },
+    // 데이터가 존재하지 않을경우 표시할 문구
     emptyTableText: { type: String, required: false, default: "No data found" },
+    // 현재 페이지
     currentPage: { type: Number, required: false, default: 1 },
   },
   emits: [
