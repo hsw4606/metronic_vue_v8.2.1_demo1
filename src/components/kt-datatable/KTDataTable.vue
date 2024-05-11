@@ -14,9 +14,9 @@
     >
       <!-- 상위컴포넌트에서 넘어온 slot 만큼 v-for문을 돌려서 하위컴포넌트의 slot으로 보낸다. -->
       <!-- 그리고 하위컴포넌트에서 넘어온 row 의 값을 item 변수로 치환한다. -->
-      <template v-for="(_, idx) in $slots" v-slot:[idx]="{ row: item }">
+      <template v-for="(_, name) in $slots" v-slot:[name]="{ row: item }">
         <!-- 하위컴포넌트에서 넘어온 row 의 값을 item 변수로 치환해서 상위컴포넌트에 row 프로퍼티로 해서 넘긴다. -->
-        <slot :name="idx" :row="item" />
+        <slot :name="name" :row="item" />
       </template>
     </TableContent>
     <TableFooter
