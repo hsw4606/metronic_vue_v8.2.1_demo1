@@ -63,7 +63,7 @@ export default defineComponent({
     loading: { type: Boolean, required: false, default: false },
     // 최초 정렬할 대상
     sortLabel: { type: String, required: false, default: null },
-    // 정렬 방식
+    // 최초 정렬대상의 정렬 방식
     sortOrder: {
       type: String as () => "asc" | "desc",
       required: false,
@@ -75,7 +75,7 @@ export default defineComponent({
     currentPage: { type: Number, required: false, default: 1 },
   },
   emits: [
-    "page-change", // 페이지변경 이벤트
+    "page-change", // 페이지 이동 이벤트
     "on-sort", // 정렬 이벤트
     "on-items-select", // 체크박스 아이템 선택시 이벤트
     "on-items-per-page-change", // 페이지당 row 갯수 변경 이벤트
@@ -87,7 +87,10 @@ export default defineComponent({
   setup(props, { emit }) {
     // 현재 페이지
     // prop 자체는 변경이 불가하므로 이러한 방식으로 변경이 가능하도록 한다.
+    // 변경이 가능해야 하는 이유는,
+    // - 페이지당 row수가 변경되는 경우 1페이지부터 다시 시작해야 되기 때문
     const currentPage = ref(props.currentPage);
+
     // 페이지당 row 수
     const itemsInTable = ref<number>(props.itemsPerPage);
 
@@ -103,7 +106,7 @@ export default defineComponent({
       }
     );
 
-    // page 가 변경된 경우 실행되는 함수
+    // 하위컴포넌트(TableFooter)에 의해 page 가 변경된 경우 실행되는 함수
     // 즉 여기서 하는 역할은 하위컴포넌트(TableFooter)에서
     // page 변경 이벤트가 발생한 경우 그대로 상위 컴포넌트에 이벤트를 넘긴다.
     const pageChange = (page: number) => {
@@ -126,7 +129,11 @@ export default defineComponent({
     };
 
     // 실제 테이블상에 보여줄 데이터목록
-    // currentPage 가 변경될 경우 dataToDisplay 가 변경된다.
+    // page 가 변경될 경우 dataToDisplay 가 변경된다.
+    // 실제 이러한 일이 발생되는 경우는...
+    // 위의 watch 로 모니터링되고있는 하위컴포넌트(TableFooter)에 v-model 로 바인딩되어있는 itemsInTable 값이 변경되어서
+    // page 가 변경처리되고
+    // 그로인해 dataToDisplay 도 변경되는 상황이다.
     const dataToDisplay = computed(() => {
       if (props.data) {
         if (props.data.length <= itemsInTable.value) {
