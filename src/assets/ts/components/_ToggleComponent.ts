@@ -190,13 +190,20 @@ class ToggleComponent {
   public static createInstances = (selector: string) => {
     const elements = document.body.querySelectorAll<HTMLElement>(selector);
     elements.forEach((el) => {
+      // DataUtil 에 html element 의 'toggle' 키에 해당하는 맵 data 추출
+      // 여기서 맵 data 는 ToggleComponent 인스턴스
       let toggle = ToggleComponent.getInstance(el);
       if (!toggle) {
-        toggle = new ToggleComponent(el, defaultToggleOptions);
+        // 존재하지 않을경우 ToggleComponent 인스턴스를 생성해서 넣는다.
+        new ToggleComponent(el, defaultToggleOptions);
       }
     });
   };
 
+  /**
+   * DataUtil 에
+   * [data-kt-toggle] 에 해당하는 html element 들로 'toggle' 키의 맵 데이터로 ToggleComponent 인스턴스를 생성한다.
+   */
   public static reinitialization = () => {
     ToggleComponent.createInstances("[data-kt-toggle]");
   };

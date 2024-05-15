@@ -1,6 +1,10 @@
+/**
+ * html element 별 데이터맵을 관리하는 util
+ */
 export class DataUtil {
   static store: Map<HTMLElement, Map<string, unknown>> = new Map();
 
+  // html element 별 key/data 형식의 데이터맵을 셋팅한다.
   public static set(
     instance: HTMLElement | undefined,
     key: string,
@@ -20,6 +24,7 @@ export class DataUtil {
     instanceData.set(key, data);
   }
 
+  // html element 의 key 에 해당하는 data 를 리턴한다.
   public static get(instance: HTMLElement, key: string): unknown | undefined {
     const instanceData = DataUtil.store.get(instance);
     if (!instanceData) {
