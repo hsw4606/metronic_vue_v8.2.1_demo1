@@ -86,6 +86,7 @@ const currentStepIndex = ref(0);
 const stepperObj = ref<StepperComponent | null>(null);
 
 onMounted(() => {
+  // onMounted 로 인한 onMounted 내부의 스크립트등으로 발생하는 DOM 업데이트등... onMounted 로 인한 작업이 다 끝난다음 nextTick 안의 스크립트를 실행한다.
   nextTick(() => {
     if (props.stepperEl) {
       stepperObj.value = StepperComponent.createInsance(props.stepperEl);

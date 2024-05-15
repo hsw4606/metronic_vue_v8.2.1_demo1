@@ -50,7 +50,9 @@
       <div class="row fv-row mb-7">
         <!--begin::Col-->
         <div class="col-xl-6">
-          <label class="form-label fw-bold text-gray-900 fs-6">First Name</label>
+          <label class="form-label fw-bold text-gray-900 fs-6"
+            >First Name</label
+          >
           <Field
             class="form-control form-control-lg form-control-solid"
             type="text"
@@ -109,7 +111,9 @@
         <!--begin::Wrapper-->
         <div class="mb-1">
           <!--begin::Label-->
-          <label class="form-label fw-bold text-gray-900 fs-6"> Password </label>
+          <label class="form-label fw-bold text-gray-900 fs-6">
+            Password
+          </label>
           <!--end::Label-->
 
           <!--begin::Input wrapper-->
@@ -253,6 +257,7 @@ export default defineComponent({
     });
 
     onMounted(() => {
+      // onMounted 로 인한 onMounted 내부의 스크립트등으로 발생하는 DOM 업데이트등... onMounted 로 인한 작업이 다 끝난다음 nextTick 안의 스크립트를 실행한다.
       nextTick(() => {
         PasswordMeterComponent.bootstrap();
       });
