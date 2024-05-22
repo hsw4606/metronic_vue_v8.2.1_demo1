@@ -10,6 +10,11 @@ export const useThemeStore = defineStore("theme", () => {
     localStorage.getItem(THEME_MODE_LS_KEY) as "light" | "dark" | "system"
   );
 
+  /**
+   * theme 모드를 localstorage 에 저장한다.
+   * 그리고 html dom 의 root(즉 html 태그) 에 data-bs-theme 속성값으로 셋팅한다.
+   * @param payload
+   */
   function setThemeMode(payload: "light" | "dark" | "system") {
     let currentMode = payload;
     localStorage.setItem(THEME_MODE_LS_KEY, currentMode);

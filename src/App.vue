@@ -17,19 +17,21 @@ export default defineComponent({
     RouterView,
   },
   setup() {
+    // 설정 store 사용
     const configStore = useConfigStore();
+    // theme store 사용
     const themeStore = useThemeStore();
+    // body store 사용
     const bodyStore = useBodyStore();
 
     onBeforeMount(() => {
       /**
-       * Overrides the layout config using saved data from localStorage
-       * remove this to use static config (@/layouts/default-layout/config/DefaultLayoutConfig.ts)
+       * 레이아웃 설정을 configStore 의 config 에 적용한다.
        */
       configStore.overrideLayoutConfig();
 
       /**
-       *  Sets a mode from configuration
+       * theme 모드를 설정한다.
        */
       themeStore.setThemeMode(themeConfigValue.value);
     });
@@ -37,8 +39,10 @@ export default defineComponent({
     onMounted(() => {
       // onMounted 로 인한 onMounted 내부의 스크립트등으로 발생하는 DOM 업데이트등... onMounted 로 인한 작업이 다 끝난다음 nextTick 안의 스크립트를 실행한다.
       nextTick(() => {
+        // 컴포넌트들의 초기화 작업을 진행한다.
         initializeComponents();
 
+        // body에서 로딩바를 제거한다.
         bodyStore.removeBodyClassName("page-loading");
       });
     });

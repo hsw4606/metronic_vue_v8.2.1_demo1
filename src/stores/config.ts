@@ -23,6 +23,11 @@ export const useConfigStore = defineStore("config", () => {
     config.value = Object.assign({}, initial.value);
   }
 
+  /**
+   * 초기설정값을 레이아웃설정에 셋팅한다.
+   * 만약 localstorage 에 초기설정값이 존재하지 않으면 기본값을 사용하고,
+   * 존재하면하면 그 값으로 덮어쓴다.
+   */
   function overrideLayoutConfig() {
     config.value = initial.value = Object.assign(
       {},

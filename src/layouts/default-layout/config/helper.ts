@@ -20,7 +20,8 @@ export const themeMode = computed(() => {
 });
 
 /**
- * Returns the actual theme configuration mode
+ * 레이아웃 설정을 configStore 의 config 의 general.mode 설정값을 가지고 온다.
+ * 만약 존재하지 않으면 'system' 을 가지고 온다.
  */
 export const themeConfigValue = computed(() => {
   return useConfigStore().getLayoutConfig("general.mode")
